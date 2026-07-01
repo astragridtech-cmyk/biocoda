@@ -1,0 +1,58 @@
+# BioCoda: full demo stack. No external keys required.
+#
+#   docker compose up --build
+#   → web      http://localhost:3000
+#     worker   http://localhost:8000/health
+#     db       localhost:5432 (biocoda/biocoda)
+#
+# The db comes up pre-seeded: the postgis image runs packages/db/sql/*.sql
+# (schema → RLS → ~40 seed parcels) on first boot.
+
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_USER: biocoda
+      POSTGRES_PASSWORD: biocoda
+      POSTGRES_DB: biocoda
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./packages/db/sql:/docker-entrypoint-initdb.d:ro
+      - gk_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U biocoda -d biocoda"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  eo-worker:
+    build:
+      context: ./apps/eo-worker
+    environment:
+      DATABASE_URL: postgresql://biocoda:biocoda@db:5432/biocoda
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    environment:
+      DATABASE_URL: postgresql://biocoda:biocoda@db:5432/biocoda
+      EO_WORKER_URL: http://eo-worker:8000
+      DEFAULT_TENANT: rb-natural-trust
+      DEFAULT_ROLE: responsible_body
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+      eo-worker:
+        condition: service_started
+
+volumes:
+  gk_pgdata:
