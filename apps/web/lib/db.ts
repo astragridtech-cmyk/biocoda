@@ -14,11 +14,17 @@ const globalForPool = globalThis as unknown as { gkPool?: Pool };
 
 export function pool(): Pool {
   if (!globalForPool.gkPool) {
+    const connectionString =
+      process.env.DATABASE_URL ?? "postgresql://biocoda:biocoda@localhost:5432/biocoda";
+    // Managed Postgres (Supabase) requires TLS; the local docker db does not.
+    const local =
+      connectionString.includes("localhost") ||
+      connectionString.includes("127.0.0.1") ||
+      connectionString.includes("@db:");
     globalForPool.gkPool = new Pool({
-      connectionString:
-        process.env.DATABASE_URL ??
-        "postgresql://biocoda:biocoda@localhost:5432/biocoda",
-      max: 8,
+      connectionString,
+      max: process.env.DATABASE_URL ? 4 : 8, // serverless: keep the pool small
+      ssl: local ? undefined : { rejectUnauthorized: false },
     });
   }
   return globalForPool.gkPool;

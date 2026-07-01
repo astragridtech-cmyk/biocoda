@@ -12,13 +12,16 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "echo \"(no tests in db)\" && exit 0",
     "seed:print": "tsx src/seed.ts --print",
-    "seed:sql": "tsx src/seed.ts --out sql/0003_seed.sql"
+    "seed:sql": "tsx src/seed.ts --out sql/0003_seed.sql",
+    "migrate": "tsx src/migrate.ts"
   },
   "dependencies": {
     "@biocoda/adapters": "workspace:*",
     "@biocoda/shared": "workspace:*"
   },
   "devDependencies": {
+    "@types/pg": "^8.11.10",
+    "pg": "^8.13.1",
     "tsx": "^4.19.2",
     "typescript": "^5.6.3"
   }
