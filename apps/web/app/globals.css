@@ -123,6 +123,18 @@ button:focus-visible {
     padding-right: 20px !important;
   }
 }
+/* Phone: reflow the dashboard-mock internals so nothing overflows. */
+@media (max-width: 640px) {
+  .lp-hide-mobile {
+    display: none !important;
+  }
+  .lp-stats {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .lp-wrap {
+    flex-wrap: wrap !important;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

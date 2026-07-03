@@ -120,7 +120,7 @@ export default function LandingPage() {
             ))}
           </nav>
           <div style={{ display: "flex", alignItems: "center", gap: 18, flexShrink: 0 }}>
-            <Link href="/login" style={{ font: `600 15px ${SANS}`, color: "#245024", textDecoration: "none" }}>Sign in</Link>
+            <Link href="/login" className="lp-hide-mobile" style={{ font: `600 15px ${SANS}`, color: "#245024", textDecoration: "none" }}>Sign in</Link>
             <a href="#book" style={{ font: `600 15px ${SANS}`, color: "#fff", textDecoration: "none", background: "#3B7D3C", padding: "11px 20px", borderRadius: 11, boxShadow: "0 6px 16px rgba(59,125,60,0.24)" }}>Book a demo</a>
           </div>
         </div>
@@ -162,28 +162,28 @@ export default function LandingPage() {
                     <span style={{ font: `500 13px ${SANS}`, color: "#5E5A50", background: "#fff", border: "1px solid #DCE5D7", borderRadius: 8, padding: "5px 40px" }}>biocoda.astragrid.tech</span>
                   </div>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 22px", borderBottom: "1px solid #EAF0E5" }}>
+                <div className="lp-wrap" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, padding: "14px 22px", borderBottom: "1px solid #EAF0E5" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 26 }}>
                     <Wordmark size={17} />
                     <span style={{ font: `600 13.5px ${SANS}`, color: "#245024", background: "#EAF3E6", padding: "5px 12px", borderRadius: 8 }}>Portfolio</span>
-                    <span style={{ font: `500 13.5px ${SANS}`, color: "#5E5A50" }}>Digest</span>
-                    <span style={{ font: `500 13.5px ${SANS}`, color: "#5E5A50" }}>Import plan</span>
+                    <span className="lp-hide-mobile" style={{ font: `500 13.5px ${SANS}`, color: "#5E5A50" }}>Digest</span>
+                    <span className="lp-hide-mobile" style={{ font: `500 13.5px ${SANS}`, color: "#5E5A50" }}>Import plan</span>
                   </div>
-                  <span style={{ font: `500 12.5px ${SANS}`, color: "#8A8578" }}>Lens · Responsible body: evidence and 30-year risk</span>
+                  <span className="lp-hide-mobile" style={{ font: `500 12.5px ${SANS}`, color: "#8A8578" }}>Lens · Responsible body: evidence and 30-year risk</span>
                 </div>
                 <div style={{ margin: "18px 22px 0", border: "1px solid #E6ECE1", borderRadius: 12, padding: "16px 20px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
                     <span style={{ font: `600 10.5px ${SANS}`, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8A8578", whiteSpace: "nowrap" }}>Management year</span>
                     <span style={{ fontFamily: SERIF, fontWeight: 700, fontSize: 26, color: "#18301A", lineHeight: 1 }}>09</span>
-                    <span style={{ font: `500 13px ${SANS}`, color: "#8A8578" }}>/ 30 · 2034</span>
+                    <span className="lp-hide-mobile" style={{ font: `500 13px ${SANS}`, color: "#8A8578" }}>/ 30 · 2034</span>
                     <div style={{ flex: 1, position: "relative", height: 4, background: "#E6ECE1", borderRadius: 99, margin: "0 4px" }}>
                       <div style={{ position: "absolute", left: 0, top: 0, height: "100%", width: "30%", background: "#8E5BB5", borderRadius: 99 }} />
                       <div style={{ position: "absolute", left: "30%", top: "50%", transform: "translate(-50%,-50%)", width: 16, height: 16, background: "#fff", border: "3px solid #8E5BB5", borderRadius: "50%", boxShadow: "0 2px 6px rgba(0,0,0,0.15)" }} />
                     </div>
-                    <span style={{ font: `500 11px ${SANS}`, color: "#8E5BB5" }}>Target</span>
+                    <span className="lp-hide-mobile" style={{ font: `500 11px ${SANS}`, color: "#8E5BB5" }}>Target</span>
                   </div>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 14, padding: "16px 22px 0" }}>
+                <div className="lp-stats" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 14, padding: "16px 22px 0" }}>
                   {[["On track", "15", "#3B7D3C", "38% of portfolio"], ["At risk", "18", "#8E5BB5", "47 ha off trajectory"], ["Awaiting Earth observation", "7", "#9A9E94", "no baseline captured yet"], ["Portfolio condition", "2.22", "#18301A", "mean score · target 3.00"]].map(([label, val, color, sub]) => (
                     <div key={label} style={{ border: "1px solid #E6ECE1", borderRadius: 12, padding: "14px 16px" }}>
                       <div style={{ font: `600 10px ${SANS}`, letterSpacing: "0.09em", textTransform: "uppercase", color: "#8A8578", marginBottom: 6 }}>{label}</div>
@@ -203,7 +203,7 @@ export default function LandingPage() {
                       <span style={{ font: `500 11px ${SANS}`, color: "#5E5A50", padding: "4px 8px" }}>Light</span>
                     </div>
                     <div style={{ position: "absolute", bottom: 10, right: 10, font: `500 10px ${SANS}`, color: "#fff", background: "rgba(20,30,20,0.55)", padding: "4px 8px", borderRadius: 6 }}>Imagery © Esri, Maxar</div>
-                    <div style={{ position: "absolute", bottom: 10, left: 12, display: "flex", gap: 14, background: "rgba(255,255,255,0.92)", borderRadius: 8, padding: "6px 10px" }}>
+                    <div className="lp-hide-mobile" style={{ position: "absolute", bottom: 10, left: 12, display: "flex", gap: 14, background: "rgba(255,255,255,0.92)", borderRadius: 8, padding: "6px 10px" }}>
                       {[["On track", "#3B7D3C"], ["At risk", "#8E5BB5"], ["Awaiting Earth observation", "#9A9E94"]].map(([label, c]) => (
                         <span key={label} style={{ display: "inline-flex", alignItems: "center", gap: 5, font: `500 10.5px ${SANS}`, color: "#5E5A50" }}><span style={{ width: 8, height: 8, borderRadius: "50%", background: c }} />{label}</span>
                       ))}
@@ -298,12 +298,12 @@ export default function LandingPage() {
             </div>
             <figure role="img" aria-label="Portfolio satellite map screenshot showing parcels across the United Kingdom coloured by status, with condition, habitat, Earth observation and verification layer toggles" style={{ margin: 0 }}>
               <div style={{ borderRadius: 16, overflow: "hidden", border: "1px solid rgba(255,255,255,0.16)", boxShadow: "0 30px 70px rgba(0,0,0,0.35)", background: "#1c3247" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 18px", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+                <div className="lp-wrap" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, padding: "14px 18px", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
                   <div>
                     <div style={{ font: `600 15px ${SANS}`, color: "#fff" }}>Portfolio map</div>
                     <div style={{ font: `400 12px ${SANS}`, color: "rgba(255,255,255,0.6)", marginTop: 2 }}>Condition status: on track, at risk, awaiting Earth observation</div>
                   </div>
-                  <div style={{ display: "flex", gap: 4, background: "rgba(255,255,255,0.08)", borderRadius: 9, padding: 4 }}>
+                  <div className="lp-wrap" style={{ display: "flex", gap: 4, background: "rgba(255,255,255,0.08)", borderRadius: 9, padding: 4 }}>
                     <span style={{ font: `600 11.5px ${SANS}`, color: "#fff", background: "#3B7D3C", padding: "5px 11px", borderRadius: 6 }}>Condition</span>
                     {["Habitat", "Earth observation", "Verification"].map((t) => (
                       <span key={t} style={{ font: `500 11.5px ${SANS}`, color: "rgba(255,255,255,0.72)", padding: "5px 9px" }}>{t}</span>
