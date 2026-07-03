@@ -77,7 +77,7 @@ export function LoginForm({ tenants }: { tenants: { id: string; name: string }[]
     try {
       const supa = browserSupabase();
       const { error } = await supa.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/auth/callback?next=/account/change-password`,
+        redirectTo: `${window.location.origin}/auth/reset`,
       });
       if (error) throw error;
       setSent(true);
