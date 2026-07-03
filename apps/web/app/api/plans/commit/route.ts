@@ -40,7 +40,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    const result = await commitPlan(getSession(), parsed.data, approvedRefs, geometries);
+    const result = await commitPlan((await getSession()), parsed.data, approvedRefs, geometries);
     return NextResponse.json(result);
   } catch (err) {
     return NextResponse.json({ error: (err as Error).message }, { status: 500 });

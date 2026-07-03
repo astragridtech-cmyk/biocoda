@@ -56,7 +56,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   const bounds = parseBounds(q);
 
   try {
-    const parcel = await getParcel(getSession(), params.id);
+    const parcel = await getParcel((await getSession()), params.id);
     if (!parcel) return NextResponse.json({ error: "not found" }, { status: 404 });
     const comparison = await sentinelComparison(parcel.geom, parcel.baselineDate, windows, bounds);
     return NextResponse.json({ available: true, ...comparison });

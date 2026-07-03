@@ -42,7 +42,7 @@ export async function GET(req: Request) {
   }
   try {
     if (format === "json") {
-      const { manifest } = await buildReport(getSession(), parcelId);
+      const { manifest } = await buildReport((await getSession()), parcelId);
       return new NextResponse(JSON.stringify(manifest, null, 2), {
         headers: {
           "content-type": "application/json",
@@ -51,7 +51,7 @@ export async function GET(req: Request) {
       });
     }
 
-    const { bytes, filename } = await buildReportPdf(getSession(), parcelId, reportOptions(url.searchParams));
+    const { bytes, filename } = await buildReportPdf((await getSession()), parcelId, reportOptions(url.searchParams));
     return new NextResponse(Buffer.from(bytes), {
       headers: {
         "content-type": "application/pdf",

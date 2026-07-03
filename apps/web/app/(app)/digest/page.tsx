@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export default async function DigestPage() {
   let s: PortfolioState;
   try {
-    s = await portfolioState(getSession());
+    s = await portfolioState((await getSession()));
   } catch (err) {
     return (
       <div className="card p-8 text-center text-sm text-muted">

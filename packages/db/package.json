@@ -13,13 +13,15 @@
     "test": "echo \"(no tests in db)\" && exit 0",
     "seed:print": "tsx src/seed.ts --print",
     "seed:sql": "tsx src/seed.ts --out sql/0003_seed.sql",
-    "migrate": "tsx src/migrate.ts"
+    "migrate": "tsx src/migrate.ts",
+    "provision": "tsx src/provision-user.ts"
   },
   "dependencies": {
     "@biocoda/adapters": "workspace:*",
     "@biocoda/shared": "workspace:*"
   },
   "devDependencies": {
+    "@supabase/supabase-js": "^2.45.4",
     "@types/pg": "^8.11.10",
     "pg": "^8.13.1",
     "tsx": "^4.19.2",

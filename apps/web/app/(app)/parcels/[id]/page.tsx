@@ -18,7 +18,7 @@ import { StatusBadge, ConditionPill } from "@/components/StatusBadge";
 export const dynamic = "force-dynamic";
 
 export default async function ParcelPage({ params }: { params: { id: string } }) {
-  const session = getSession();
+  const session = (await getSession());
   const parcel = await getParcel(session, params.id);
   if (!parcel) notFound();
   const ctx = toContext(parcel);
@@ -43,7 +43,7 @@ export default async function ParcelPage({ params }: { params: { id: string } })
 
   async function dispatchSurvey() {
     "use server";
-    await createSurveyTask(getSession(), parcelId, surveyReason);
+    await createSurveyTask((await getSession()), parcelId, surveyReason);
     revalidatePath(`/parcels/${parcelId}`);
   }
 

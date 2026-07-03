@@ -135,6 +135,9 @@ importers:
         specifier: workspace:*
         version: link:../shared
     devDependencies:
+      '@supabase/supabase-js':
+        specifier: ^2.45.4
+        version: 2.108.2
       '@types/pg':
         specifier: ^8.11.10
         version: 8.20.0

@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 /** GET /api/notifications -> { notifications, unread }. */
 export async function GET() {
   try {
-    const notifications = await listNotifications(getSession());
+    const notifications = await listNotifications((await getSession()));
     return NextResponse.json({ notifications, unread: unreadCount(notifications) });
   } catch (err) {
     return NextResponse.json({ error: (err as Error).message }, { status: 500 });

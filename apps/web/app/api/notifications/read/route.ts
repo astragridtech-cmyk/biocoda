@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     // empty body marks all read
   }
   try {
-    await markRead(getSession(), body.id);
+    await markRead((await getSession()), body.id);
     return NextResponse.json({ ok: true });
   } catch (err) {
     return NextResponse.json({ error: (err as Error).message }, { status: 500 });

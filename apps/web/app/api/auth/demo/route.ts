@@ -1,11 +1,16 @@
 import { NextResponse } from "next/server";
+import { hasSupabase } from "@/lib/supabase";
 
 /**
  * POST /api/auth/demo
- * Demo sign-in used when Supabase is not configured. Sets the auth cookie plus
- * the tenant/role lens. Body: { email?, role?, tenant? }.
+ * Demo sign-in for local development only, used when Supabase is not configured.
+ * Disabled whenever Supabase Auth is configured (production), so there is no
+ * password-less way in. Sets the demo cookie plus the tenant/role lens.
  */
 export async function POST(req: Request) {
+  if (hasSupabase()) {
+    return NextResponse.json({ error: "disabled" }, { status: 403 });
+  }
   let body: { email?: string; role?: string; tenant?: string } = {};
   try {
     body = await req.json();

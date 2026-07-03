@@ -15,7 +15,7 @@ export async function POST(req: Request) {
   }
   try {
     const id = await createSurveyTask(
-      getSession(),
+      (await getSession()),
       body.parcelId,
       body.reason || "Field verification requested from the portfolio",
     );

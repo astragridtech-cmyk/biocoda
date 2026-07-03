@@ -5,7 +5,7 @@ import { PortfolioApp, type PortfolioParcel } from "@/components/PortfolioApp";
 export const dynamic = "force-dynamic";
 
 export default async function PortfolioPage() {
-  const session = getSession();
+  const session = (await getSession());
 
   let parcels;
   try {

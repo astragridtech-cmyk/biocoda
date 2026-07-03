@@ -76,3 +76,27 @@ export async function listTenants(): Promise<
   );
   return rows;
 }
+
+export interface AppUser {
+  id: string;
+  tenantId: string | null;
+  role: string;
+  name: string;
+  email: string;
+}
+
+/**
+ * Look up a licensed user by email. This is the invite-only gate: an
+ * authenticated identity only gets access if an app_user row exists for its
+ * email, and that row carries the organisation (tenant) and role. Reference
+ * read (app_user is not RLS-scoped), so no tenant context is needed.
+ */
+export async function appUserByEmail(email: string): Promise<AppUser | null> {
+  const { rows } = await pool().query(
+    "SELECT id, tenant_id, role, name, email FROM app_user WHERE lower(email) = lower($1) LIMIT 1",
+    [email],
+  );
+  if (!rows[0]) return null;
+  const r = rows[0];
+  return { id: r.id, tenantId: r.tenant_id, role: r.role, name: r.name, email: r.email };
+}

@@ -43,9 +43,11 @@ export async function serverSupabase() {
 }
 
 /** The authenticated Supabase user, or null. */
-export async function supabaseUser(): Promise<{ email: string | null } | null> {
+export async function supabaseUser(): Promise<{ email: string | null; mustChangePassword: boolean } | null> {
   const supa = await serverSupabase();
   if (!supa) return null;
   const { data } = await supa.auth.getUser();
-  return data.user ? { email: data.user.email ?? null } : null;
+  if (!data.user) return null;
+  const meta = data.user.user_metadata as { must_change_password?: boolean } | undefined;
+  return { email: data.user.email ?? null, mustChangePassword: meta?.must_change_password === true };
 }
