@@ -193,8 +193,8 @@ export default function LandingPage() {
                   ))}
                 </div>
                 <div style={{ padding: "16px 22px 22px" }}>
-                  <div style={{ position: "relative", height: 300, borderRadius: 12, overflow: "hidden", border: "1px solid #E6ECE1", backgroundImage: "url('/portfolio-map.jpg')", backgroundSize: "cover", backgroundPosition: "center 42%" }}>
-                    {[["52%", "20%", "#3B7D3C"], ["66%", "37%", "#3B7D3C"], ["33%", "56%", "#8E5BB5"], ["57%", "66%", "#3B7D3C"], ["26%", "74%", "#9A9E94"]].map(([l, t, c], i) => (
+                  <div style={{ position: "relative", aspectRatio: "1140 / 300", borderRadius: 12, overflow: "hidden", border: "1px solid #E6ECE1", backgroundImage: "url('/portfolio-map.jpg')", backgroundSize: "cover", backgroundPosition: "center 42%" }}>
+                    {[["55%", "26%", "#3B7D3C"], ["50%", "38%", "#3B7D3C"], ["54%", "66%", "#8E5BB5"], ["58%", "50%", "#3B7D3C"], ["49%", "78%", "#9A9E94"]].map(([l, t, c], i) => (
                       <span key={i} style={{ position: "absolute", left: l, top: t, width: 15, height: 15, borderRadius: "50%", background: c, border: "3px solid #fff", boxShadow: "0 1px 4px rgba(0,0,0,0.35)" }} />
                     ))}
                     <div style={{ position: "absolute", top: 12, left: 12, display: "flex", gap: 4, background: "rgba(255,255,255,0.92)", borderRadius: 9, padding: 4, boxShadow: "0 2px 8px rgba(0,0,0,0.15)" }}>
@@ -310,8 +310,8 @@ export default function LandingPage() {
                     ))}
                   </div>
                 </div>
-                <div style={{ position: "relative", height: 360, backgroundImage: "url('/portfolio-map.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
-                  {[["54%", "16%", "#3B7D3C"], ["68%", "34%", "#3B7D3C"], ["34%", "54%", "#8E5BB5"], ["58%", "64%", "#3B7D3C"], ["26%", "72%", "#9A9E94"], ["46%", "40%", "#3B7D3C"]].map(([l, t, c], i) => (
+                <div style={{ position: "relative", aspectRatio: "640 / 360", backgroundImage: "url('/portfolio-map.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
+                  {[["55%", "30%", "#3B7D3C"], ["58%", "44%", "#3B7D3C"], ["48%", "39%", "#8E5BB5"], ["56%", "67%", "#3B7D3C"], ["49%", "72%", "#9A9E94"], ["52%", "56%", "#3B7D3C"]].map(([l, t, c], i) => (
                     <span key={i} style={{ position: "absolute", left: l, top: t, width: 16, height: 16, borderRadius: "50%", background: c, border: "3px solid #fff", boxShadow: "0 1px 5px rgba(0,0,0,0.4)" }} />
                   ))}
                   <div style={{ position: "absolute", top: 12, left: 12, display: "flex", gap: 4, background: "rgba(255,255,255,0.92)", borderRadius: 9, padding: 4 }}>
