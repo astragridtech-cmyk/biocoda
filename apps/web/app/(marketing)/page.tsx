@@ -193,7 +193,7 @@ export default function LandingPage() {
                   ))}
                 </div>
                 <div style={{ padding: "16px 22px 22px" }}>
-                  <div style={{ position: "relative", height: 300, borderRadius: 12, overflow: "hidden", border: "1px solid #E6ECE1", background: "radial-gradient(ellipse 40% 55% at 34% 62%, #6f8a52 0%, #58743f 45%, transparent 72%), radial-gradient(ellipse 30% 40% at 62% 42%, #6b8a4e 0%, transparent 70%), radial-gradient(ellipse 46% 60% at 20% 30%, #7a9159 0%, transparent 68%), linear-gradient(135deg,#22485a 0%,#2a5563 40%,#356b52 68%,#4a7040 100%)" }}>
+                  <div style={{ position: "relative", height: 300, borderRadius: 12, overflow: "hidden", border: "1px solid #E6ECE1", backgroundImage: "url('/portfolio-map.jpg')", backgroundSize: "cover", backgroundPosition: "center 42%" }}>
                     {[["52%", "20%", "#3B7D3C"], ["66%", "37%", "#3B7D3C"], ["33%", "56%", "#8E5BB5"], ["57%", "66%", "#3B7D3C"], ["26%", "74%", "#9A9E94"]].map(([l, t, c], i) => (
                       <span key={i} style={{ position: "absolute", left: l, top: t, width: 15, height: 15, borderRadius: "50%", background: c, border: "3px solid #fff", boxShadow: "0 1px 4px rgba(0,0,0,0.35)" }} />
                     ))}
@@ -310,7 +310,7 @@ export default function LandingPage() {
                     ))}
                   </div>
                 </div>
-                <div style={{ position: "relative", height: 360, background: "radial-gradient(ellipse 38% 52% at 34% 60%, #6f8a52 0%, #55703d 45%, transparent 72%), radial-gradient(ellipse 30% 42% at 60% 40%, #6b8a4e 0%, transparent 70%), radial-gradient(ellipse 44% 58% at 22% 32%, #7a9159 0%, transparent 66%), radial-gradient(ellipse 26% 36% at 74% 70%, #5f7a44 0%, transparent 70%), linear-gradient(135deg,#1f4356 0%,#27505f 40%,#336a50 68%,#48703e 100%)" }}>
+                <div style={{ position: "relative", height: 360, backgroundImage: "url('/portfolio-map.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
                   {[["54%", "16%", "#3B7D3C"], ["68%", "34%", "#3B7D3C"], ["34%", "54%", "#8E5BB5"], ["58%", "64%", "#3B7D3C"], ["26%", "72%", "#9A9E94"], ["46%", "40%", "#3B7D3C"]].map(([l, t, c], i) => (
                     <span key={i} style={{ position: "absolute", left: l, top: t, width: 16, height: 16, borderRadius: "50%", background: c, border: "3px solid #fff", boxShadow: "0 1px 5px rgba(0,0,0,0.4)" }} />
                   ))}
