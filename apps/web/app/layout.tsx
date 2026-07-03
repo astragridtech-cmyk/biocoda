@@ -10,10 +10,10 @@ const inter = Inter({
   display: "swap",
 });
 
-// Spectral serif for marketing display headlines (per the landing handoff).
+// Spectral serif for marketing display headlines and stat figures (landing handoff).
 const spectral = Spectral({
   subsets: ["latin"],
-  weight: ["500"],
+  weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
   variable: "--font-serif",
   display: "swap",
@@ -22,7 +22,7 @@ const spectral = Spectral({
 // Poppins for the BioCoda wordmark.
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["600"],
+  weight: ["600", "700"],
   variable: "--font-poppins",
   display: "swap",
 });
