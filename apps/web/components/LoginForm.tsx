@@ -23,13 +23,19 @@ export function LoginForm({ tenants }: { tenants: { id: string; name: string }[]
   const [tenant, setTenant] = useState(tenants[0]?.id ?? "rb-natural-trust");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [info, setInfo] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
 
   useEffect(() => {
-    const err = new URLSearchParams(window.location.search).get("error");
+    const params = new URLSearchParams(window.location.search);
+    const err = params.get("error");
     if (err === "oauth") setError("That sign-in did not complete. Please try again.");
+    else if (err === "reset") setError("That reset link is invalid or has expired. Request a new one below.");
     else if (err === "not_provisioned") {
       setError("This account is not licensed for BioCoda yet. Ask your administrator to add you.");
+    }
+    if (params.get("reset") === "done") {
+      setInfo("Your password has been updated. Please sign in with your new password.");
     }
   }, []);
 
@@ -123,6 +129,12 @@ export function LoginForm({ tenants }: { tenants: { id: string; name: string }[]
           </div>
         </div>
       </div>
+
+      {info && (
+        <div className="mb-3 rounded-md border border-forest/40 bg-[#E4EBDE] px-3 py-2 text-sm text-forest">
+          {info}
+        </div>
+      )}
 
       {error && (
         <div className="mb-3 rounded-md border border-orchid/40 bg-[#F1EAF7] px-3 py-2 text-sm text-orchid">
