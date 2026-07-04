@@ -35,7 +35,7 @@ export function LoginForm({ tenants }: { tenants: { id: string; name: string }[]
       setError("This account is not licensed for BioCoda yet. Ask your administrator to add you.");
     }
     if (params.get("reset") === "done") {
-      setInfo("Your password has been updated. Please sign in with your new password.");
+      setInfo("Your password is set. Please sign in with it to continue.");
     }
   }, []);
 
