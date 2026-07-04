@@ -26,6 +26,8 @@ export interface AuthState {
   provisioned: boolean;
   /** The user must set a new password before a full session is granted. */
   mustChangePassword: boolean;
+  /** Allowed to manage users (add/revoke) from inside the app. */
+  isAdmin: boolean;
   email: string | null;
   name: string | null;
   tenantId: string;
@@ -36,11 +38,27 @@ const DENY: AuthState = {
   authenticated: false,
   provisioned: false,
   mustChangePassword: false,
+  isAdmin: false,
   email: null,
   name: null,
   tenantId: DEFAULT_TENANT,
   role: DEFAULT_ROLE,
 };
+
+/**
+ * Admins are named in an environment allowlist (comma-separated emails), not a
+ * database flag, so no schema migration is needed and the set is changed by
+ * editing one server-side env var. The email comes from the verified Supabase
+ * session, so this cannot be spoofed from the browser.
+ */
+export function isAdminEmail(email: string | null): boolean {
+  if (!email) return false;
+  const allow = (process.env.BIOCODA_ADMIN_EMAILS ?? "")
+    .split(",")
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean);
+  return allow.includes(email.toLowerCase());
+}
 
 /** Resolve the request's identity and organisation lens. */
 export async function getAuthState(): Promise<AuthState> {
@@ -53,6 +71,7 @@ export async function getAuthState(): Promise<AuthState> {
       authenticated: true,
       provisioned: true,
       mustChangePassword: false,
+      isAdmin: true, // local/demo: manage-users page is testable offline
       email: decodeURIComponent(demo),
       name: null,
       tenantId: jar.get("bc_tenant")?.value ?? DEFAULT_TENANT,
@@ -76,6 +95,7 @@ export async function getAuthState(): Promise<AuthState> {
     authenticated: true,
     provisioned: true,
     mustChangePassword: user.mustChangePassword,
+    isAdmin: isAdminEmail(user.email),
     email: user.email,
     name: appUser.name,
     tenantId: appUser.tenantId ?? DEFAULT_TENANT,

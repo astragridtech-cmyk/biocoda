@@ -37,7 +37,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
             <a href="/dashboard" className="flex items-center gap-3">
               <Logo />
             </a>
-            <AppNav />
+            <AppNav isAdmin={auth.isAdmin} />
           </div>
           <div className="flex items-center gap-3">
             {showSwitcher && (

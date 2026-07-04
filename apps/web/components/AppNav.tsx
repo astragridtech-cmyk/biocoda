@@ -10,11 +10,12 @@ const LINKS = [
 ];
 
 /** Top-bar nav with an active pill on the current route (per the v2 spec). */
-export function AppNav() {
+export function AppNav({ isAdmin }: { isAdmin?: boolean }) {
   const path = usePathname();
+  const links = isAdmin ? [...LINKS, { href: "/admin/users", label: "Team" }] : LINKS;
   return (
     <nav className="hidden items-center gap-1 text-sm sm:flex">
-      {LINKS.map((l) => {
+      {links.map((l) => {
         const active = path === l.href || (l.href === "/dashboard" && path?.startsWith("/parcels"));
         return (
           <Link
