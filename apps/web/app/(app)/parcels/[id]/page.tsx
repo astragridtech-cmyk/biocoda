@@ -78,6 +78,16 @@ export default async function ParcelPage({ params }: { params: { id: string } })
             </button>
           </form>
           <a
+            href="#progress"
+            className="inline-flex items-center gap-1.5 rounded-md bg-moss px-3 py-1.5 text-sm font-medium text-white hover:bg-leaf"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <rect x="3" y="4" width="7" height="16" rx="1.3" stroke="currentColor" strokeWidth={2} />
+              <rect x="14" y="4" width="7" height="16" rx="1.3" stroke="currentColor" strokeWidth={2} />
+            </svg>
+            See progress
+          </a>
+          <a
             href={`/api/reports?parcelId=${parcel.id}&format=pdf`}
             className="rounded-md border border-line px-3 py-1.5 text-sm font-medium text-ink hover:bg-panel"
           >
@@ -117,7 +127,9 @@ export default async function ParcelPage({ params }: { params: { id: string } })
       </div>
 
       {/* Spatial change detection */}
-      <ChangeMap parcelId={parcel.id} geom={parcel.geom} baselineDate={parcel.baselineDate} />
+      <section id="progress" className="scroll-mt-24">
+        <ChangeMap parcelId={parcel.id} geom={parcel.geom} baselineDate={parcel.baselineDate} />
+      </section>
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Metric linkage */}
