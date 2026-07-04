@@ -20,6 +20,7 @@ export default function ResetPage() {
   const [confirm, setConfirm] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [invalidMsg, setInvalidMsg] = useState<string | null>(null);
   const readyRef = useRef(false);
 
   useEffect(() => {
@@ -35,14 +36,37 @@ export default function ResetPage() {
       if (session) markReady();
     });
     (async () => {
-      // Query-code (PKCE) flow: exchange the code for a session.
-      const code = new URLSearchParams(window.location.search).get("code");
+      const hash = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+      const search = new URLSearchParams(window.location.search);
+
+      // The verify link may redirect back with an explicit error (an expired or
+      // already-used link). Surface it rather than a generic "invalid".
+      const errCode = hash.get("error_code") || search.get("error_code");
+      const errDesc = hash.get("error_description") || search.get("error_description");
+      if (errCode || hash.get("error") || search.get("error")) {
+        setInvalidMsg(errDesc ? decodeURIComponent(errDesc.replace(/\+/g, " ")) : null);
+        if (!readyRef.current) setPhase("invalid");
+        return;
+      }
+
+      // Implicit flow (invite and admin-generated links): the session tokens
+      // arrive in the URL hash. Set the session from them directly, because the
+      // PKCE client does not consume hash tokens on its own.
+      const accessToken = hash.get("access_token");
+      const refreshToken = hash.get("refresh_token");
+      if (accessToken && refreshToken) {
+        const { error } = await supa.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
+        if (!error) return markReady();
+      }
+
+      // Query-code (PKCE) flow: a reset started in the browser returns a ?code.
+      const code = search.get("code");
       if (code) {
         const { error } = await supa.auth.exchangeCodeForSession(code);
         if (!error) return markReady();
       }
-      // Otherwise the hash-token flow is picked up automatically; give it a
-      // moment, then confirm a session exists.
+
+      // Last resort: a session may already be present.
       setTimeout(async () => {
         const { data } = await supa.auth.getSession();
         if (data.session) markReady();
@@ -92,7 +116,8 @@ export default function ResetPage() {
         {phase === "invalid" && (
           <div className="space-y-4">
             <div className="rounded-md border border-orchid/40 bg-[#F1EAF7] px-3 py-2 text-sm text-orchid">
-              This reset link is invalid or has expired. Request a new one from the sign-in page.
+              This link is invalid or has expired. Request a new one from the sign-in page.
+              {invalidMsg ? <span className="mt-1 block text-xs opacity-80">({invalidMsg})</span> : null}
             </div>
             <Link href="/login" className="block w-full rounded-md bg-moss px-4 py-2 text-center text-sm font-medium text-white hover:bg-leaf">
               Back to sign in
