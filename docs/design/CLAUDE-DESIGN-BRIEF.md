@@ -195,7 +195,7 @@ A public site and launch system that makes a responsible body, LPA, developer, o
 3. **For responsible bodies / For LPAs / For developers:** three persona pages, each with their job-to-be-done, value props, and proof.
 4. **Evidence and trust:** compliance posture, 30-year durability, UK data residency, tenant isolation, security. Critical for B2G procurement.
 5. **Approach / science:** the EO-not-calculator thesis, methodology, accuracy framing (decision-support EO, authoritative field verification).
-6. **Pricing:** per-parcel/per-hectare annual monitoring model, EO add-on, field-verification module, grant-funded pilot pathway (framed as indicative, not advice).
+6. **Pricing:** annual per-organisation licence scaled by hectares under monitoring, with Earth observation monitoring at the core (not an add-on); field-verification module as a genuine add-on; paid pilot credited to year one, with a grant-funded pathway. Framed as indicative, not advice. Canonical model and tiers: docs/marketing/PRICING.md.
 7. **About:** mission, team, Astragrid context, funders/partners.
 8. **Insights / resources:** articles, the case-study template, BNG explainer content (SEO engine).
 9. **Contact / Book a demo:** low-friction form, calendar, security/data note.

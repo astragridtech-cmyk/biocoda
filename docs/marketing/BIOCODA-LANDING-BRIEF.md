@@ -201,7 +201,7 @@ PAGE SECTIONS (in this order)
 
 - Heading: Start with a pilot.
 
-- Body: Annual licence per organisation, scaled by portfolio size, with the Earth observation monitoring module. Begin with a paid pilot on your own sites and your own plans. Not a self-serve checkout; this is a conversation.
+- Body: Annual licence per organisation, scaled by portfolio size (hectares under monitoring), with Earth observation monitoring at the core. Begin with a paid pilot on your own sites and your own plans, credited to your first year if you convert. Not a self-serve checkout; this is a conversation. (Canonical model and indicative tiers: docs/marketing/PRICING.md.)
 
 - Button: "Book a pilot" or "Book a demo".
 
