@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { scoreToBand } from "@biocoda/shared";
+import {
+  scoreToBand,
+  observedConditionAt,
+  correctedConditionAt,
+  fieldPointFromVerification,
+  managementYear,
+  classify,
+} from "@biocoda/shared";
 import { getSession } from "@/lib/auth";
 import {
   createSurveyTask,
@@ -13,6 +20,7 @@ import {
 import { getConditionSeries, getRequiredCurve, getTrajectory } from "@/lib/eo";
 import { TrajectoryChart } from "@/components/TrajectoryChart";
 import { ChangeMap } from "@/components/ChangeMap";
+import { FieldVerificationForm } from "@/components/FieldVerificationForm";
 import { StatusBadge, ConditionPill } from "@/components/StatusBadge";
 
 export const dynamic = "force-dynamic";
@@ -30,6 +38,32 @@ export default async function ParcelPage({ params }: { params: { id: string } })
     listVerifications(session, parcel.id),
     openTaskForParcel(session, parcel.id),
   ]);
+
+  // Field recalibration. A verification is authoritative: it bends the observed
+  // curve through the assessed point and carries forward, fading back toward the
+  // Earth observation model (shared correctedConditionAt). With no verification,
+  // the Earth observation trajectory stands unchanged.
+  const fieldPoints = verifications.map((v) =>
+    fieldPointFromVerification(parcel.baselineDate, v.at, v.condition),
+  );
+  const hasField = fieldPoints.length > 0;
+  const modelAt = (yy: number) => observedConditionAt(parcel.id, yy);
+  const correctedEo = hasField
+    ? eoSeries.map((p) => ({
+        capturedAt: p.capturedAt,
+        value: correctedConditionAt(modelAt, managementYear(parcel.baselineDate, p.capturedAt), fieldPoints),
+      }))
+    : eoSeries;
+  const correctedActual = correctedConditionAt(modelAt, trajectory.year, fieldPoints);
+  const reclass = classify(
+    { baselineCondition: parcel.baselineCondition, targetCondition: parcel.targetCondition, targetYear: parcel.byYear },
+    trajectory.year,
+    correctedActual,
+  );
+  const effStatus = hasField ? reclass.status : trajectory.status;
+  const effActual = hasField ? correctedActual : trajectory.actual;
+  const effGap = hasField ? reclass.gap : trajectory.gap;
+  const latestVerified = verifications[0]?.at?.slice(0, 10);
 
   // Precompute so the server action closes over plain strings, not the whole
   // trajectory/parcel objects (which the RSC boundary would try to serialise).
@@ -67,7 +101,12 @@ export default async function ParcelPage({ params }: { params: { id: string } })
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <StatusBadge status={trajectory.status} />
+          <StatusBadge status={effStatus} />
+          {hasField && (
+            <span className="rounded-md border border-forest/40 bg-[#E4EBDE] px-2 py-1 text-xs font-medium text-forest">
+              Field verified {latestVerified}
+            </span>
+          )}
           <form action={dispatchSurvey}>
             <button
               type="submit"
@@ -107,24 +146,42 @@ export default async function ParcelPage({ params }: { params: { id: string } })
         <div className="mb-2 flex items-center justify-between">
           <h2 className="font-semibold">Condition trajectory</h2>
           <span className="text-xs text-stone-500">
-            Year {trajectory.year} · actual {trajectory.actual.toFixed(2)} vs required{" "}
-            {trajectory.required.toFixed(2)} ({trajectory.gap >= 0 ? "+" : ""}
-            {trajectory.gap.toFixed(2)})
+            Year {trajectory.year} · {hasField ? "field-verified" : "estimated"} {effActual.toFixed(2)} vs
+            required {trajectory.required.toFixed(2)} ({effGap >= 0 ? "+" : ""}
+            {effGap.toFixed(2)})
           </span>
         </div>
+        {hasField && (
+          <p className="mb-2 text-xs text-stone-400">
+            The curve is anchored to the latest field verification and fades back toward the Earth
+            observation estimate between visits.
+          </p>
+        )}
         <TrajectoryChart
           baselineDate={parcel.baselineDate}
           byYear={parcel.byYear}
           currentYear={trajectory.year}
-          status={trajectory.status}
+          status={effStatus}
           requiredCurve={requiredCurve}
-          eoSeries={eoSeries.map((p) => ({ capturedAt: p.capturedAt, value: p.value }))}
+          eoSeries={correctedEo.map((p) => ({ capturedAt: p.capturedAt, value: p.value }))}
           verifications={verifications.map((v) => ({
             at: v.at,
             score: conditionMap[v.condition],
           }))}
         />
       </div>
+
+      {/* Ecologist: record a field verification (authoritative ground truth) */}
+      {session.role === "ecologist" && (
+        <section id="verify" className="card scroll-mt-24 p-4">
+          <h2 className="mb-1 font-semibold">Record a field verification</h2>
+          <p className="mb-4 text-sm text-stone-500">
+            Assess the parcel on site. Your reading becomes the authoritative status and recalibrates
+            the trajectory. Works on a phone, tablet, or computer.
+          </p>
+          <FieldVerificationForm parcelId={parcel.id} />
+        </section>
+      )}
 
       {/* Spatial change detection */}
       <section id="progress" className="scroll-mt-24">

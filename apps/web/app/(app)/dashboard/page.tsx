@@ -1,5 +1,6 @@
+import type { FieldPoint } from "@biocoda/shared";
 import { getSession } from "@/lib/auth";
-import { listParcels } from "@/lib/data";
+import { listParcels, fieldPointsByParcel } from "@/lib/data";
 import { PortfolioApp, type PortfolioParcel } from "@/components/PortfolioApp";
 
 export const dynamic = "force-dynamic";
@@ -8,8 +9,10 @@ export default async function PortfolioPage() {
   const session = (await getSession());
 
   let parcels;
+  let fields: Record<string, FieldPoint[]> = {};
   try {
     parcels = await listParcels(session);
+    fields = await fieldPointsByParcel(session);
   } catch (err) {
     return <DbDown message={(err as Error).message} />;
   }
@@ -21,6 +24,7 @@ export default async function PortfolioPage() {
     areaHa: p.areaHa,
     baselineDate: p.baselineDate,
     geom: p.geom,
+    fields: fields[p.id] ?? [],
   }));
 
   return <PortfolioApp parcels={lean} role={session.role} />;

@@ -1,11 +1,13 @@
 import {
   assessParcel,
   classify,
+  fieldPointFromVerification,
   hashU32,
   observedConditionAt,
   parcelProfile,
   scoreToBand,
   type ConditionBand,
+  type FieldPoint,
   type PlanExtraction,
 } from "@biocoda/shared";
 import { MockMetricAdapter } from "@biocoda/adapters";
@@ -244,6 +246,19 @@ export function pushNotification(n: Omit<MemNotification, "id" | "createdAt" | "
     createdAt: new Date().toISOString(),
     read: false,
   });
+}
+
+export function fieldPointsByParcel(): Record<string, FieldPoint[]> {
+  const s = state();
+  const out: Record<string, FieldPoint[]> = {};
+  for (const v of s.verifications) {
+    const parcel = s.parcels.find((p) => p.id === v.parcelId);
+    if (!parcel) continue;
+    (out[v.parcelId] ??= []).push(
+      fieldPointFromVerification(parcel.baselineDate, v.at, v.condition),
+    );
+  }
+  return out;
 }
 
 export function addVerification(input: {

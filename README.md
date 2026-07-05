@@ -108,14 +108,11 @@ pnpm --filter @biocoda/db seed:print   # preview to stdout
 pnpm --filter @biocoda/db seed:sql      # rewrite packages/db/sql/0003_seed.sql
 ```
 
-### Mobile app (Expo)
+### Field verification (any device)
 
-```bash
-cd apps/mobile
-EXPO_PUBLIC_API_URL=http://<your-LAN-ip>:3000 pnpm start
-```
-
-Talks to the same web API the dashboard uses.
+There is no separate mobile app. An ecologist signs in to the same web app on a
+phone, tablet, or computer; the responsive **Survey queue** and the parcel
+verification form capture the condition band, notes, and live device location.
 
 ---
 
@@ -129,9 +126,10 @@ Talks to the same web API the dashboard uses.
    actual-vs-required condition trajectory across the 30-year period, the Metric
    linkage (baseline/target units + conditions), and the at-risk gap.
 4. **Dispatch a survey:** *Dispatch field survey* spawns a targeted task.
-5. **Mobile verification:** in the Expo app, the task appears in the worklist;
-   capture a condition band + notes + photos + geotag and file it. The EO signal
-   is reconciled and the task closes.
+5. **Field verification:** signed in as an ecologist, the task appears in the
+   Survey queue; on the parcel, capture a condition band + notes + device
+   location and file it. The verification becomes the authoritative status,
+   recalibrates the trajectory, and closes the task.
 6. **Export the annual pack:** back on the parcel, *Export annual pack*
    downloads the JSON evidence manifest (EO trajectory + required curve + field
    verifications + Metric linkage) for the responsible body/LPA.
@@ -144,7 +142,7 @@ Talks to the same web API the dashboard uses.
 |---|---|
 | Runs via docker-compose, seed parcels, mock EO/Metric, no external keys | `docker-compose.yml`, `packages/db/sql/*` |
 | Import parcels; per-parcel required-vs-actual trajectory + at-risk flags | `apps/web/app/parcels/[id]`, `eo-worker`, `lib/eo.ts` |
-| At-risk parcel → field-survey task → ecologist app records a verification | `lib/data.ts` (survey_task), `apps/mobile`, `api/mobile/verifications` |
+| At-risk parcel → field-survey task → ecologist records a verification in the web app | `lib/data.ts` (survey_task), `components/FieldVerificationForm.tsx`, `api/verifications` |
 | Annual pack exports EO trajectory + field evidence + Metric linkage | `lib/report.ts`, `api/reports` |
 | Swapping EoHabitatAdapter(Mock) for Real changes no calling code | `packages/adapters` interfaces |
 

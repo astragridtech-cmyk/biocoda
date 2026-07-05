@@ -1,6 +1,6 @@
 import { withTenant, type Session } from "./db.js";
 import type { ParcelContext } from "./eo.js";
-import type { Polygon, ConditionBand } from "@biocoda/shared";
+import { fieldPointFromVerification, type FieldPoint, type Polygon, type ConditionBand } from "@biocoda/shared";
 import * as demo from "./demo.js";
 
 /** A parcel row joined with its target and latest trajectory flag. */
@@ -166,6 +166,33 @@ export async function listSurveyTasks(
       status: r.status,
       createdAt: r.created_at,
     }));
+  });
+}
+
+/**
+ * Field verifications for the whole portfolio, grouped by parcel and placed on
+ * the management-period timeline, so the dashboard can recalibrate each parcel's
+ * status against ground truth (shared correctedConditionAt).
+ */
+export async function fieldPointsByParcel(
+  session: Session,
+): Promise<Record<string, FieldPoint[]>> {
+  if (demo.isDemo()) return demo.fieldPointsByParcel();
+  return withTenant(session, async (c) => {
+    const { rows } = await c.query(
+      `SELECT v.parcel_id,
+              v.condition,
+              to_char(v.at, 'YYYY-MM-DD"T"HH24:MI:SS"Z"') AS at,
+              to_char(p.baseline_date, 'YYYY-MM-DD') AS baseline
+       FROM verification v JOIN parcel p ON p.id = v.parcel_id`,
+    );
+    const out: Record<string, FieldPoint[]> = {};
+    for (const r of rows) {
+      (out[r.parcel_id] ??= []).push(
+        fieldPointFromVerification(r.baseline, r.at, r.condition as ConditionBand),
+      );
+    }
+    return out;
   });
 }
 

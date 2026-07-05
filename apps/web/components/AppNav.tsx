@@ -10,9 +10,13 @@ const LINKS = [
 ];
 
 /** Top-bar nav with an active pill on the current route (per the v2 spec). */
-export function AppNav({ isAdmin }: { isAdmin?: boolean }) {
+export function AppNav({ isAdmin, isEcologist }: { isAdmin?: boolean; isEcologist?: boolean }) {
   const path = usePathname();
-  const links = isAdmin ? [...LINKS, { href: "/admin/users", label: "Team" }] : LINKS;
+  const links = [
+    ...LINKS,
+    ...(isEcologist ? [{ href: "/surveys", label: "Surveys" }] : []),
+    ...(isAdmin ? [{ href: "/admin/users", label: "Team" }] : []),
+  ];
   return (
     <nav className="hidden items-center gap-1 text-sm sm:flex">
       {links.map((l) => {

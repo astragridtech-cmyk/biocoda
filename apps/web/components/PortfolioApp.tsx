@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState, useEffect } from "react";
-import { assessParcel, hashU32, parcelProfile, requiredConditionAt, observedConditionAt, type Polygon } from "@biocoda/shared";
+import { assessParcel, hashU32, parcelProfile, requiredConditionAt, observedConditionAt, correctedConditionAt, type FieldPoint, type Polygon } from "@biocoda/shared";
 import { MapView } from "./MapView";
 import { TrajectoryChart } from "./TrajectoryChart";
 
@@ -13,6 +13,8 @@ export interface PortfolioParcel {
   areaHa: number;
   baselineDate: string;
   geom: Polygon;
+  /** Authoritative field verifications on the management timeline. */
+  fields?: FieldPoint[];
 }
 
 type Kind = "track" | "risk" | "awaiting";
@@ -151,7 +153,7 @@ function buildLegend(
 }
 
 function compute(p: PortfolioParcel, year: number): Computed {
-  return { p, ...assessParcel(p.id, year) };
+  return { p, ...assessParcel(p.id, year, p.fields ?? []) };
 }
 
 type SortKey = "ref" | "site" | "habitat" | "area" | "condition" | "status";
@@ -660,7 +662,7 @@ function ParcelDrawer({ row, year, onClose }: { row: Computed; year: number; onC
       ? []
       : Array.from({ length: year + 1 }, (_, yy) => ({
           capturedAt: new Date(baseline + yy * MS_PER_YEAR).toISOString(),
-          value: observedConditionAt(p.id, yy),
+          value: correctedConditionAt((yr) => observedConditionAt(p.id, yr), yy, p.fields ?? []),
         }));
 
   async function dispatch() {
