@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { EnquiryForm } from "@/components/EnquiryForm";
 
 /**
  * BioCoda marketing home page. Recreated from the high-fidelity design handoff
@@ -12,7 +13,7 @@ import type { Metadata } from "next";
 const SANS = "var(--font-inter), system-ui, sans-serif";
 const SERIF = "var(--font-serif), Georgia, serif";
 const POP = "var(--font-poppins), sans-serif";
-const DEMO = "mailto:astragridtech@gmail.com?subject=BioCoda%20demo";
+const DEMO = "#book";
 
 export const metadata: Metadata = {
   title: "BioCoda: Biodiversity Net Gain habitat monitoring software",
@@ -377,16 +378,28 @@ export default function LandingPage() {
             <Eyebrow>Pricing</Eyebrow>
             <h2 style={{ ...sectionH2(), marginBottom: 22 }}>Start with a pilot.</h2>
             <p style={{ font: `400 clamp(16px,1.4vw,18px)/1.7 ${SANS}`, color: "#5E5A50", marginBottom: 34, textWrap: "pretty" as never }}>Annual licence per organisation, scaled by portfolio size, with the Earth observation monitoring module. Begin with a paid pilot on your own sites and your own plans. Not a self-serve checkout; this is a conversation.</p>
-            <a href="#book" style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "#3B7D3C", color: "#fff", font: `600 16px ${SANS}`, textDecoration: "none", padding: "15px 30px", borderRadius: 12, boxShadow: "0 12px 28px rgba(59,125,60,0.24)" }}>Book a pilot <span aria-hidden="true" style={{ fontSize: 18 }}>&rarr;</span></a>
+            <a href="?enquiry=pilot#book" style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "#3B7D3C", color: "#fff", font: `600 16px ${SANS}`, textDecoration: "none", padding: "15px 30px", borderRadius: 12, boxShadow: "0 12px 28px rgba(59,125,60,0.24)" }}>Book a pilot <span aria-hidden="true" style={{ fontSize: 18 }}>&rarr;</span></a>
           </div>
         </section>
 
         {/* FINAL CTA BAND */}
-        <section id="book" style={{ position: "relative", padding: "104px 24px", backgroundImage: "linear-gradient(120deg,rgba(30,52,40,0.94) 0%,rgba(30,52,40,0.82) 45%,rgba(38,64,95,0.72) 100%),url('/hero-meadow.png')", backgroundSize: "cover", backgroundPosition: "center", overflow: "hidden" }}>
+        <section style={{ position: "relative", padding: "104px 24px", backgroundImage: "linear-gradient(120deg,rgba(30,52,40,0.94) 0%,rgba(30,52,40,0.82) 45%,rgba(38,64,95,0.72) 100%),url('/hero-meadow.png')", backgroundSize: "cover", backgroundPosition: "center", overflow: "hidden" }}>
           <div style={{ maxWidth: 820, margin: "0 auto", textAlign: "center", position: "relative" }}>
             <h2 style={{ fontFamily: SERIF, fontWeight: 600, fontSize: "clamp(32px,4.6vw,52px)", lineHeight: 1.08, letterSpacing: "-0.012em", color: "#fff", marginBottom: 18, textWrap: "balance" as never, textShadow: "0 2px 24px rgba(8,20,6,0.4)" }}>Thirty years of habitat, on the record.</h2>
             <p style={{ font: `400 clamp(17px,1.6vw,20px)/1.6 ${SANS}`, color: "rgba(255,255,255,0.92)", marginBottom: 36 }}>Book a demo and see BioCoda on a real portfolio.</p>
             <a href={DEMO} style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "#8E5BB5", color: "#fff", font: `600 17px ${SANS}`, textDecoration: "none", padding: "16px 34px", borderRadius: 12, boxShadow: "0 16px 36px rgba(0,0,0,0.35)" }}>Book a demo <span aria-hidden="true" style={{ fontSize: 18 }}>&rarr;</span></a>
+          </div>
+        </section>
+
+        {/* BOOK: demo / pilot enquiry form */}
+        <section id="book" style={{ padding: "96px 24px", background: "#fff", borderTop: "1px solid #DCE5D7", scrollMarginTop: 80 }}>
+          <div style={{ maxWidth: 720, margin: "0 auto" }}>
+            <Eyebrow>Get in touch</Eyebrow>
+            <h2 style={{ ...sectionH2(), marginBottom: 14 }}>Book a demo or a pilot.</h2>
+            <p style={{ font: `400 clamp(16px,1.4vw,18px)/1.7 ${SANS}`, color: "#5E5A50", marginBottom: 30, textWrap: "pretty" as never }}>Tell us a little about your sites and plans, and we will be in touch. Not a self-serve checkout; this is a conversation.</p>
+            <div style={{ background: "#F7F9F5", border: "1px solid #DCE5D7", borderRadius: 18, padding: "clamp(22px,3vw,34px)" }}>
+              <EnquiryForm />
+            </div>
           </div>
         </section>
       </main>

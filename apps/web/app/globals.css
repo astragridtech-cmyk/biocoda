@@ -134,6 +134,9 @@ button:focus-visible {
   .lp-wrap {
     flex-wrap: wrap !important;
   }
+  .lp-enquiry-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   html {
