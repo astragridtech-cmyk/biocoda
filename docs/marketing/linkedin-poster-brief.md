@@ -50,19 +50,24 @@ must carry the brand, the message, and the website address.
 
 ## 4. The text (punchy, pick one headline)
 
-Headline options, in order of preference:
+Every headline leads with "Biodiversity Net Gain" as the opening words. Options,
+in order of preference:
 
-1. **"Nature made a promise. We watch it keep it."**
-2. **"30 years of habitat recovery. Watched from orbit."**
-3. **"Proof, not promises."**
+1. **"Biodiversity Net Gain you can actually see."**
+2. **"Biodiversity Net Gain, verified from orbit."**
+3. **"Biodiversity Net Gain is a 30-year promise. We watch it being kept."**
+
+Treatment: "Biodiversity Net Gain" may sit on its own line (or two) in white,
+with the remainder of the headline in orchid purple or pale green as the second
+movement, so the term itself is the loudest element on the poster.
 
 Support line (one only, smaller, beneath the headline):
 
-- "BioCoda monitors every Biodiversity Net Gain parcel from space and turns
-  recovery into regulator-ready evidence."
+- "BioCoda monitors every habitat parcel from space and turns recovery into
+  regulator-ready evidence."
 
-Optional micro-line above the headline (eyebrow, all caps, letterspaced, orchid
-or pale green): "BIODIVERSITY NET GAIN, VERIFIED".
+No eyebrow line: the headline already opens with the term, so a
+"BIODIVERSITY NET GAIN" eyebrow would duplicate it.
 
 Hierarchy: eyebrow (optional) then headline, big and bold, then support line,
 then the website at the bottom. Four text elements maximum on the whole poster.
