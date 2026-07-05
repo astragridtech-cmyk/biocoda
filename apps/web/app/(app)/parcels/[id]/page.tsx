@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { revalidatePath } from "next/cache";
 import {
   scoreToBand,
   observedConditionAt,
@@ -11,7 +10,6 @@ import {
 } from "@biocoda/shared";
 import { getSession } from "@/lib/auth";
 import {
-  createSurveyTask,
   getParcel,
   listVerifications,
   openTaskForParcel,
@@ -21,6 +19,7 @@ import { getConditionSeries, getRequiredCurve, getTrajectory } from "@/lib/eo";
 import { TrajectoryChart } from "@/components/TrajectoryChart";
 import { ChangeMap } from "@/components/ChangeMap";
 import { FieldVerificationForm } from "@/components/FieldVerificationForm";
+import { DispatchSurveyButton } from "@/components/DispatchSurveyButton";
 import { StatusBadge, ConditionPill } from "@/components/StatusBadge";
 
 export const dynamic = "force-dynamic";
@@ -75,12 +74,6 @@ export default async function ParcelPage({ params }: { params: { id: string } })
         )} (gap ${trajectory.gap.toFixed(2)})`
       : "Manual field-verification request";
 
-  async function dispatchSurvey() {
-    "use server";
-    await createSurveyTask((await getSession()), parcelId, surveyReason);
-    revalidatePath(`/parcels/${parcelId}`);
-  }
-
   const conditionMap = { poor: 1, moderate: 2, good: 3 } as const;
 
   return (
@@ -107,15 +100,7 @@ export default async function ParcelPage({ params }: { params: { id: string } })
               Field verified {latestVerified}
             </span>
           )}
-          <form action={dispatchSurvey}>
-            <button
-              type="submit"
-              className="rounded-md bg-moss px-3 py-1.5 text-sm font-medium text-white hover:bg-leaf disabled:opacity-50"
-              disabled={!!openTask}
-            >
-              {openTask ? "Survey dispatched" : "Dispatch field survey"}
-            </button>
-          </form>
+          <DispatchSurveyButton parcelId={parcelId} reason={surveyReason} disabled={!!openTask} />
           <a
             href="#progress"
             className="inline-flex items-center gap-1.5 rounded-md bg-moss px-3 py-1.5 text-sm font-medium text-white hover:bg-leaf"
