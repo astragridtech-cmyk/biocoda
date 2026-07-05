@@ -96,7 +96,7 @@ export default async function ParcelPage({ params }: { params: { id: string } })
         <div className="flex items-center gap-3">
           <StatusBadge status={effStatus} />
           {hasField && (
-            <span className="rounded-md border border-forest/40 bg-[#E4EBDE] px-2 py-1 text-xs font-medium text-forest">
+            <span className="rounded-md border border-forest/40 bg-[#E4EBDE] px-2 py-1 text-xs font-medium text-track">
               Field verified {latestVerified}
             </span>
           )}
@@ -105,7 +105,7 @@ export default async function ParcelPage({ params }: { params: { id: string } })
             href="#progress"
             className="inline-flex items-center gap-1.5 rounded-md bg-moss px-3 py-1.5 text-sm font-medium text-white hover:bg-leaf"
           >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <rect x="3" y="4" width="7" height="16" rx="1.3" stroke="currentColor" strokeWidth={2} />
               <rect x="14" y="4" width="7" height="16" rx="1.3" stroke="currentColor" strokeWidth={2} />
             </svg>
@@ -137,7 +137,7 @@ export default async function ParcelPage({ params }: { params: { id: string } })
           </span>
         </div>
         {hasField && (
-          <p className="mb-2 text-xs text-stone-400">
+          <p className="mb-2 text-xs text-muted">
             The curve is anchored to the latest field verification and fades back toward the Earth
             observation estimate between visits.
           </p>
@@ -193,7 +193,7 @@ export default async function ParcelPage({ params }: { params: { id: string } })
             <dt className="text-stone-500">Target units</dt>
             <dd className="tabular-nums">{parcel.targetUnits}</dd>
           </dl>
-          <p className="mt-3 text-xs text-stone-400">
+          <p className="mt-3 text-xs text-muted">
             Units resolved via the Metric adapter (mock). BioCoda links to the Defra Metric; it
             does not recalculate it.
           </p>
@@ -203,7 +203,7 @@ export default async function ParcelPage({ params }: { params: { id: string } })
         <div className="card p-4">
           <h2 className="mb-3 font-semibold">Field verifications</h2>
           {verifications.length === 0 ? (
-            <p className="text-sm text-stone-400">
+            <p className="text-sm text-muted">
               No field verification yet. {trajectory.status === "at_risk" && "Dispatch a survey to ground-truth the Earth observation signal."}
             </p>
           ) : (
@@ -215,10 +215,10 @@ export default async function ParcelPage({ params }: { params: { id: string } })
                       <ConditionPill band={v.condition} />{" "}
                       <span className="text-stone-500">by {v.ecologist}</span>
                     </span>
-                    <span className="text-xs text-stone-400">{v.at.slice(0, 10)}</span>
+                    <span className="text-xs text-muted">{v.at.slice(0, 10)}</span>
                   </div>
                   {v.notes && <p className="mt-1 text-xs text-stone-600">{v.notes}</p>}
-                  <p className="mt-1 text-xs text-stone-400">
+                  <p className="mt-1 text-xs text-muted">
                     {v.photos.length} photo{v.photos.length === 1 ? "" : "s"} · {v.lat.toFixed(4)},{" "}
                     {v.lng.toFixed(4)}
                   </p>

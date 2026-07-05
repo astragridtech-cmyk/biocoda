@@ -61,7 +61,7 @@ export function EnquiryForm() {
   const label: React.CSSProperties = { font: `600 13px ${SANS}`, color: "#18301A", display: "block", marginBottom: 6 };
   const field: React.CSSProperties = {
     width: "100%", font: `400 15px ${SANS}`, color: "#18301A", padding: "11px 13px",
-    borderRadius: 10, border: "1.5px solid #D7DDD2", background: "#fff", boxSizing: "border-box",
+    borderRadius: 10, border: "1.5px solid #B4BCA8", background: "#fff", boxSizing: "border-box",
   };
 
   if (!ACCESS_KEY) {
@@ -78,7 +78,7 @@ export function EnquiryForm() {
 
   if (done) {
     return (
-      <div style={{ background: "#E4EBDE", border: "1.5px solid rgba(59,125,60,0.4)", borderRadius: 12, padding: "22px 24px", font: `500 16px/1.6 ${SANS}`, color: "#245024" }}>
+      <div role="status" style={{ background: "#E4EBDE", border: "1.5px solid rgba(59,125,60,0.4)", borderRadius: 12, padding: "22px 24px", font: `500 16px/1.6 ${SANS}`, color: "#245024" }}>
         Thank you. Your {enquiry.toLowerCase()} request is on its way to our team, and we will reply to
         the email you gave shortly.
       </div>
@@ -92,12 +92,14 @@ export function EnquiryForm() {
 
       {/* Demo / Pilot toggle */}
       <div>
-        <span style={label}>I would like to</span>
-        <div style={{ display: "inline-flex", gap: 8 }}>
+        <span id="ef-enquiry-label" style={label}>I would like to</span>
+        <div role="radiogroup" aria-labelledby="ef-enquiry-label" style={{ display: "inline-flex", gap: 8 }}>
           {(["Demo", "Pilot"] as const).map((opt) => (
             <button
               key={opt}
               type="button"
+              role="radio"
+              aria-checked={enquiry === opt}
               onClick={() => setEnquiry(opt)}
               style={{
                 font: `600 14px ${SANS}`, padding: "9px 18px", borderRadius: 10, cursor: "pointer",
@@ -141,7 +143,7 @@ export function EnquiryForm() {
       </div>
 
       {error && (
-        <div style={{ background: "#F1EAF7", border: "1.5px solid rgba(142,91,181,0.4)", borderRadius: 10, padding: "10px 14px", font: `500 14px ${SANS}`, color: "#6b3f92" }}>
+        <div role="alert" style={{ background: "#F1EAF7", border: "1.5px solid rgba(142,91,181,0.4)", borderRadius: 10, padding: "10px 14px", font: `500 14px ${SANS}`, color: "#6b3f92" }}>
           {error} You can also email misi@biocoda.uk directly.
         </div>
       )}

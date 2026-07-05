@@ -11,12 +11,12 @@ export default {
         // BioCoda brand palette: exact tokens from the BioCoda design system.
         ink: "#18301A", // headings, strongest text
         text: "#2C3A2C", // body text
-        forest: "#3B7D3C", // primary green
-        moss: "#3B7D3C", // brand green (links, primary actions, on-track)
-        leaf: "#2F6B30", // darker green for hover
-        orchid: "#8E5BB5", // coda accent + at-risk
-        risk: "#8E5BB5", // at-risk (orchid, per brand doc)
-        track: "#3B7D3C", // on-track (brand green)
+        forest: "#3B7D3C", // primary green (logo, headings)
+        moss: "#2F6B30", // interactive green (links, buttons): darkened for WCAG AA text/contrast
+        leaf: "#255C27", // darker green for hover
+        orchid: "#8E5BB5", // coda accent (logo/decorative)
+        risk: "#6D3D9A", // at-risk text: darkened orchid for WCAG AA contrast
+        track: "#2F6B30", // on-track text: darkened for WCAG AA contrast
         unknown: "#9C978B", // awaiting EO
         canvas: "#EFF3EC", // lichen background
         panel: "#F6F9F4", // secondary panel

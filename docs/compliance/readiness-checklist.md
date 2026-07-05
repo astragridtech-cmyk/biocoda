@@ -51,9 +51,13 @@ Status key: [ ] to do, [~] in progress, [x] done.
 
 ## Accessibility
 
-- [x] Publish an accessibility statement targeting WCAG 2.1 AA.
-- [ ] Commission an independent accessibility audit to replace the current
-      self-assessment, and address the known limitations (maps, trajectory chart).
+- [x] Publish an accessibility statement targeting WCAG 2.2 AA.
+- [x] Complete a code-level WCAG 2.2 AA self-audit and fix the clear issues
+      (see accessibility-audit.md).
+- [ ] Address the outstanding limitations: map keyboard selection and pan
+      alternative, drawer focus trap, and live announcement of dashboard changes.
+- [ ] Commission an independent accessibility audit (with assistive-technology
+      testing) to confirm the self-assessment.
 
 ## Insurance
 

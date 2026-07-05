@@ -5,7 +5,7 @@
 export function StatusBadge({ status }: { status: "on_track" | "at_risk" | null }) {
   if (status === "at_risk") {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-[#F1EAF7] px-2.5 py-0.5 text-xs font-medium text-orchid">
+      <span className="inline-flex items-center gap-1 rounded-full bg-[#F1EAF7] px-2.5 py-0.5 text-xs font-medium text-risk">
         ● At risk
       </span>
     );
@@ -26,9 +26,9 @@ export function StatusBadge({ status }: { status: "on_track" | "at_risk" | null 
 
 export function ConditionPill({ band }: { band: "poor" | "moderate" | "good" }) {
   const map = {
-    poor: "bg-[#F0E7E1] text-[#9B6B4F]",
-    moderate: "bg-[#EEF0E2] text-[#7C8A4A]",
-    good: "bg-[#E4EBDE] text-forest",
+    poor: "bg-[#F0E7E1] text-[#8A4B2E]",
+    moderate: "bg-[#EEF0E2] text-[#5E6B2E]",
+    good: "bg-[#E4EBDE] text-track",
   } as const;
   return (
     <span className={`rounded px-1.5 py-0.5 text-xs font-medium capitalize ${map[band]}`}>

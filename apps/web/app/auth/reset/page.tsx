@@ -110,12 +110,12 @@ export default function ResetPage() {
         </div>
 
         {phase === "verifying" && (
-          <p className="rounded-md bg-panel px-3 py-3 text-sm text-muted">Verifying your reset link...</p>
+          <p role="status" className="rounded-md bg-panel px-3 py-3 text-sm text-muted">Verifying your reset link...</p>
         )}
 
         {phase === "invalid" && (
           <div className="space-y-4">
-            <div className="rounded-md border border-orchid/40 bg-[#F1EAF7] px-3 py-2 text-sm text-orchid">
+            <div role="alert" className="rounded-md border border-orchid/40 bg-[#F1EAF7] px-3 py-2 text-sm text-risk">
               This link is invalid or has expired. Request a new one from the sign-in page.
               {invalidMsg ? <span className="mt-1 block text-xs opacity-80">({invalidMsg})</span> : null}
             </div>
@@ -129,7 +129,7 @@ export default function ResetPage() {
           <form onSubmit={submit} className="space-y-3">
             <p className="mb-1 text-sm text-muted">Set a new password. You will then sign in with it.</p>
             {error && (
-              <div className="rounded-md border border-orchid/40 bg-[#F1EAF7] px-3 py-2 text-sm text-orchid">{error}</div>
+              <div role="alert" className="rounded-md border border-orchid/40 bg-[#F1EAF7] px-3 py-2 text-sm text-risk">{error}</div>
             )}
             <label className="block text-xs font-medium text-ink">
               New password

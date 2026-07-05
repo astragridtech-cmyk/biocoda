@@ -31,6 +31,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   return (
     <>
+      <a href="#main" className="skip">Skip to main content</a>
       <header className="border-b border-line bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3">
           <div className="flex items-center gap-5">
@@ -48,7 +49,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           </div>
         </div>
       </header>
-      <main className="mx-auto max-w-7xl px-6 py-6">{children}</main>
+      <main id="main" className="mx-auto max-w-7xl px-6 py-6">{children}</main>
     </>
   );
 }

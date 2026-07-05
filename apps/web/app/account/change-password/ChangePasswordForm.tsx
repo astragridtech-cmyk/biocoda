@@ -42,14 +42,15 @@ export function ChangePasswordForm() {
   return (
     <form onSubmit={submit} className="space-y-3">
       {error && (
-        <div className="rounded-md border border-orchid/40 bg-[#F1EAF7] px-3 py-2 text-sm text-orchid">
+        <div role="alert" className="rounded-md border border-orchid/40 bg-[#F1EAF7] px-3 py-2 text-sm text-risk">
           {error}
         </div>
       )}
       <label className="block text-xs font-medium text-ink">
         New password
-        <input type="password" required minLength={8} value={pw} onChange={(e) => setPw(e.target.value)} className={inputClass} autoComplete="new-password" />
+        <input type="password" required minLength={8} value={pw} onChange={(e) => setPw(e.target.value)} className={inputClass} autoComplete="new-password" aria-describedby="pw-hint" />
       </label>
+      <p id="pw-hint" className="text-xs text-muted">Use at least 8 characters.</p>
       <label className="block text-xs font-medium text-ink">
         Confirm new password
         <input type="password" required minLength={8} value={confirm} onChange={(e) => setConfirm(e.target.value)} className={inputClass} autoComplete="new-password" />

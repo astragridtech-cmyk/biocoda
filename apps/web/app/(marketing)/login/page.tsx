@@ -1,9 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getAuthState } from "@/lib/auth";
 import { listTenants } from "@/lib/db";
 import { LoginForm } from "@/components/LoginForm";
 
+export const metadata: Metadata = { title: "Sign in - BioCoda" };
 export const dynamic = "force-dynamic";
 
 export default async function LoginPage() {

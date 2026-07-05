@@ -6,9 +6,9 @@ import { useRouter } from "next/navigation";
 type Band = "poor" | "moderate" | "good";
 
 const BANDS: { value: Band; label: string; color: string }[] = [
-  { value: "poor", label: "Poor", color: "#C2410C" },
-  { value: "moderate", label: "Moderate", color: "#8E5BB5" },
-  { value: "good", label: "Good", color: "#3B7D3C" },
+  { value: "poor", label: "Poor", color: "#A8420E" },
+  { value: "moderate", label: "Moderate", color: "#6D3D9A" },
+  { value: "good", label: "Good", color: "#2F6B30" },
 ];
 
 /**
@@ -70,7 +70,7 @@ export function FieldVerificationForm({ parcelId }: { parcelId: string }) {
 
   if (done) {
     return (
-      <div className="rounded-md border border-forest/40 bg-[#E4EBDE] px-4 py-3 text-sm text-forest">
+      <div role="status" className="rounded-md border border-forest/40 bg-[#E4EBDE] px-4 py-3 text-sm text-track">
         Verification filed. The parcel status and trajectory now reflect your assessment.
       </div>
     );
@@ -79,23 +79,28 @@ export function FieldVerificationForm({ parcelId }: { parcelId: string }) {
   return (
     <form onSubmit={submit} className="space-y-4">
       <div>
-        <div className="mb-1.5 text-xs font-medium text-ink">Condition assessed on site</div>
-        <div className="grid grid-cols-3 gap-2">
-          {BANDS.map((b) => (
-            <button
-              key={b.value}
-              type="button"
-              onClick={() => setCondition(b.value)}
-              className="rounded-md border px-3 py-2.5 text-sm font-medium"
-              style={
-                condition === b.value
-                  ? { background: b.color, color: "#fff", borderColor: b.color }
-                  : { borderColor: "var(--line, #dfe3dc)", color: b.color }
-              }
-            >
-              {b.label}
-            </button>
-          ))}
+        <div id="fv-cond-label" className="mb-1.5 text-xs font-medium text-ink">Condition assessed on site</div>
+        <div role="radiogroup" aria-labelledby="fv-cond-label" className="grid grid-cols-3 gap-2">
+          {BANDS.map((b) => {
+            const active = condition === b.value;
+            return (
+              <button
+                key={b.value}
+                type="button"
+                role="radio"
+                aria-checked={active}
+                onClick={() => setCondition(b.value)}
+                className="rounded-md border px-3 py-2.5 text-sm font-medium"
+                style={
+                  active
+                    ? { background: b.color, color: "#fff", borderColor: b.color, boxShadow: "inset 0 0 0 2px #fff, 0 0 0 2px " + b.color }
+                    : { borderColor: "#B4BCA8", color: b.color }
+                }
+              >
+                {active ? "✓ " : ""}{b.label}
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -121,13 +126,13 @@ export function FieldVerificationForm({ parcelId }: { parcelId: string }) {
         </button>
         {coords && (
           <span className="text-xs text-muted">
-            📍 {coords.lat.toFixed(5)}, {coords.lng.toFixed(5)}
+            <span aria-hidden="true">📍</span> {coords.lat.toFixed(5)}, {coords.lng.toFixed(5)}
           </span>
         )}
       </div>
 
       {error && (
-        <div className="rounded-md border border-orchid/40 bg-[#F1EAF7] px-3 py-2 text-sm text-orchid">{error}</div>
+        <div role="alert" className="rounded-md border border-orchid/40 bg-[#F1EAF7] px-3 py-2 text-sm text-risk">{error}</div>
       )}
 
       <button

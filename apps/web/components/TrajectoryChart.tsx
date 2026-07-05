@@ -67,8 +67,19 @@ export function TrajectoryChart(props: Props) {
   const cx = x(props.currentYear);
   const cyActual = actPts.length ? actPts[actPts.length - 1]!.y : y(0);
 
+  const lastVal = eoSeries.length ? eoSeries[eoSeries.length - 1]!.value : null;
+  const reqNow =
+    requiredCurve.find((p) => p.year === props.currentYear)?.required ??
+    requiredCurve[requiredCurve.length - 1]?.required;
+  const summary =
+    `Condition trajectory over ${maxYear} years. ` +
+    (lastVal != null && reqNow != null
+      ? `At year ${props.currentYear} the condition is about ${lastVal.toFixed(1)} of 3 against a required ${reqNow.toFixed(1)}, `
+      : "") +
+    `${atRisk ? "at risk" : "on track"}. Target condition due by year ${props.byYear}.`;
+
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label="Condition trajectory">
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label={summary}>
       <defs>
         <linearGradient id="bcArea" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor={accent} stopOpacity="0.28" />
@@ -91,14 +102,14 @@ export function TrajectoryChart(props: Props) {
 
       {/* x-axis ticks */}
       {Array.from({ length: maxYear / 5 + 1 }, (_, i) => i * 5).map((yr) => (
-        <text key={yr} x={x(yr)} y={H - PAD.bottom + 16} fontSize="10" fill="#9C978B" textAnchor="middle">
+        <text key={yr} x={x(yr)} y={H - PAD.bottom + 16} fontSize="10" fill="#5E5A50" textAnchor="middle">
           Y{yr}
         </text>
       ))}
 
       {/* target-year marker */}
       <line x1={x(props.byYear)} x2={x(props.byYear)} y1={PAD.top} y2={H - PAD.bottom} stroke="#BBD0B6" strokeDasharray="2 3" />
-      <text x={x(props.byYear)} y={PAD.top - 8} fontSize="9.5" fill="#3B7D3C" textAnchor="middle">
+      <text x={x(props.byYear)} y={PAD.top - 8} fontSize="9.5" fill="#2F6B30" textAnchor="middle">
         target Y{props.byYear}
       </text>
 

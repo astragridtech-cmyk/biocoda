@@ -273,7 +273,7 @@ export function PortfolioApp({ parcels, role }: { parcels: PortfolioParcel[]; ro
           aria-label={playing ? "Pause" : "Play the 30-year arc"}
           className="grid h-[42px] w-[42px] place-items-center rounded-full border border-line bg-panel text-forest hover:bg-field"
         >
-          {playing ? "❚❚" : "▶"}
+          <span aria-hidden="true">{playing ? "❚❚" : "▶"}</span>
         </button>
         <div className="flex min-w-[280px] flex-1 flex-col gap-1.5">
           <input
@@ -283,8 +283,7 @@ export function PortfolioApp({ parcels, role }: { parcels: PortfolioParcel[]; ro
             value={year}
             onChange={(e) => { setPlaying(false); setYear(Number(e.target.value)); }}
             aria-label="Management year"
-            role="slider"
-            aria-valuenow={year}
+            aria-valuetext={`Year ${year}, ${BASE_YEAR + year}`}
             className="bc-scrubber"
             style={{
               background: `linear-gradient(90deg,#8E5BB5 0%,#8E5BB5 ${(year / MANAGEMENT_YEARS) * 100}%,#DCE5D7 ${(year / MANAGEMENT_YEARS) * 100}%,#DCE5D7 100%)`,
@@ -424,8 +423,8 @@ export function PortfolioApp({ parcels, role }: { parcels: PortfolioParcel[]; ro
                       <Th k="area" cur={sortKey} dir={sortDir} set={setSortKey} flip={setSortDir} right>Area</Th>
                       <Th k="condition" cur={sortKey} dir={sortDir} set={setSortKey} flip={setSortDir}>Condition</Th>
                       <Th k="status" cur={sortKey} dir={sortDir} set={setSortKey} flip={setSortDir}>Status</Th>
-                      <th className="px-4 py-2">Earth observation</th>
-                      <th className="px-4 py-2">Verified</th>
+                      <th scope="col" className="px-4 py-2">Earth observation</th>
+                      <th scope="col" className="px-4 py-2">Verified</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-line2">
@@ -435,7 +434,13 @@ export function PortfolioApp({ parcels, role }: { parcels: PortfolioParcel[]; ro
                         <tr
                           key={r.p.id}
                           onClick={() => setSelected(r.p.id)}
-                          className={`cursor-pointer hover:bg-panel ${selected === r.p.id ? "bg-panel" : ""}`}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setSelected(r.p.id); }
+                          }}
+                          tabIndex={0}
+                          role="button"
+                          aria-label={`Open ${r.p.name} details`}
+                          className={`cursor-pointer hover:bg-panel focus:bg-panel ${selected === r.p.id ? "bg-panel" : ""}`}
                         >
                           <td className={`px-4 ${pad} text-[11px] tabular-nums text-muted`}>{r.code}</td>
                           <td className={`px-4 ${pad} font-medium text-ink`}>{r.p.name}</td>
@@ -509,6 +514,7 @@ function Segmented({
         <button
           key={o.value}
           onClick={() => onChange(o.value)}
+          aria-pressed={value === o.value}
           className={`rounded-lg ${small ? "px-2.5 py-1 text-[11px]" : "px-4 py-1.5 text-[13.5px]"} font-medium transition ${
             value === o.value ? "bg-forest text-white" : "text-muted hover:text-ink"
           }`}
@@ -546,6 +552,7 @@ function Chip({
   return (
     <button
       onClick={onClick}
+      aria-pressed={active}
       className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-[7px] text-[12.5px] font-medium transition ${
         active ? "" : "border-line bg-transparent text-muted"
       }`}
@@ -590,6 +597,16 @@ function Kpi({
       className={`card px-[18px] pb-[15px] pt-[17px] ${onClick ? "cursor-pointer transition hover:border-forest/40" : ""}`}
       style={active ? { boxShadow: "0 0 0 1px #18301A" } : undefined}
       onClick={onClick}
+      {...(onClick
+        ? {
+            role: "button" as const,
+            tabIndex: 0,
+            "aria-pressed": active,
+            onKeyDown: (e: React.KeyboardEvent) => {
+              if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onClick(); }
+            },
+          }
+        : {})}
     >
       <div className="text-[10.5px] font-semibold uppercase tracking-[0.1em] text-muted">{label}</div>
       <div className="mt-1 flex items-baseline gap-1">
@@ -605,10 +622,11 @@ function Kpi({
 
 function StatusPill({ kind }: { kind: Kind }) {
   const label = kind === "track" ? "On track" : kind === "risk" ? "At risk" : "Awaiting Earth observation";
+  const textColor = kind === "track" ? "#2F6B30" : kind === "risk" ? "#6D3D9A" : "#5E5A50";
   return (
     <span
       className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-medium"
-      style={{ background: TINT[kind], color: kind === "awaiting" ? "#5E5A50" : DOT[kind] }}
+      style={{ background: TINT[kind], color: textColor }}
     >
       <span className="h-1.5 w-1.5 rounded-full" style={{ background: DOT[kind] }} />
       {label}
@@ -636,11 +654,18 @@ function Th({
   const activeCol = cur === k;
   return (
     <th
-      className={`cursor-pointer select-none px-4 py-2 ${right ? "text-right" : ""}`}
-      onClick={() => (activeCol ? flip(dir === "asc" ? "desc" : "asc") : (set(k), flip("asc")))}
+      scope="col"
+      aria-sort={activeCol ? (dir === "asc" ? "ascending" : "descending") : undefined}
+      className={`px-4 py-2 ${right ? "text-right" : ""}`}
     >
-      {children}
-      {activeCol && <span className="ml-1">{dir === "asc" ? "↑" : "↓"}</span>}
+      <button
+        type="button"
+        onClick={() => (activeCol ? flip(dir === "asc" ? "desc" : "asc") : (set(k), flip("asc")))}
+        className={`inline-flex select-none items-center gap-1 uppercase tracking-[inherit] ${right ? "flex-row-reverse" : ""}`}
+      >
+        {children}
+        {activeCol && <span aria-hidden="true">{dir === "asc" ? "↑" : "↓"}</span>}
+      </button>
     </th>
   );
 }
@@ -679,8 +704,15 @@ function ParcelDrawer({ row, year, onClose }: { row: Computed; year: number; onC
     }
   }
 
+  // Close on Escape (WCAG 2.1.1: keyboard dismissal of the dialog).
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
   return (
-    <div className="fixed inset-0 z-40" role="dialog" aria-modal>
+    <div className="fixed inset-0 z-40" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
       <div className="absolute inset-0" style={{ background: "rgba(14,26,18,0.42)" }} onClick={onClose} />
       <div className="absolute right-0 top-0 h-full w-[540px] max-w-[94vw] overflow-y-auto bg-canvas shadow-2xl">
         <div className="flex items-start justify-between border-b border-line bg-white px-6 py-4">
@@ -689,14 +721,14 @@ function ParcelDrawer({ row, year, onClose }: { row: Computed; year: number; onC
               <StatusPill kind={kind} />
               <span className="text-[11px] tabular-nums text-muted">{row.code}</span>
             </div>
-            <h2 className="mt-1.5 text-2xl font-bold text-ink">{p.name}</h2>
+            <h2 id="drawer-title" className="mt-1.5 text-2xl font-bold text-ink">{p.name}</h2>
           </div>
           <button
             onClick={onClose}
             aria-label="Close"
             className="grid h-[34px] w-[34px] place-items-center rounded-md border border-line text-muted hover:bg-panel"
           >
-            ✕
+            <span aria-hidden="true">✕</span>
           </button>
         </div>
 
@@ -751,7 +783,7 @@ function ParcelDrawer({ row, year, onClose }: { row: Computed; year: number; onC
             href={`/parcels/${p.id}#progress`}
             className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-md bg-moss px-4 py-2.5 text-center text-sm font-medium text-white hover:bg-leaf"
           >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <rect x="3" y="4" width="7" height="16" rx="1.3" stroke="currentColor" strokeWidth={2} />
               <rect x="14" y="4" width="7" height="16" rx="1.3" stroke="currentColor" strokeWidth={2} />
             </svg>
@@ -797,7 +829,7 @@ function TimelineView({ parcels, year }: { parcels: PortfolioParcel[]; year: num
     <div className="card p-4">
       <div className="mb-1 text-sm font-semibold text-ink">Portfolio condition over the management period</div>
       <div className="mb-3 text-[11px] text-muted">Mean Earth observation condition score across all monitored parcels, year 0 to 30.</div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full">
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label="Line chart of the mean condition score across all monitored parcels from year 0 to year 30.">
         <defs>
           <linearGradient id="tlArea" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#3B7D3C" stopOpacity="0.26" />

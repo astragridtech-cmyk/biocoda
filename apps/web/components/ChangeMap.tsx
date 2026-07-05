@@ -413,10 +413,10 @@ function PeriodScrubber({
       </div>
       <div className="mt-2 flex items-center gap-1.5">
         <span className="text-[10px] uppercase tracking-wide text-muted">Specific dates</span>
-        <input type="date" value={from} min={S2_MIN} max={today()} onChange={(e) => onFrom(e.target.value)}
+        <input type="date" aria-label="Start date" value={from} min={S2_MIN} max={today()} onChange={(e) => onFrom(e.target.value)}
           className="rounded-md border border-line bg-white px-2 py-1 text-xs text-ink" />
         <span className="text-xs text-muted">to</span>
-        <input type="date" value={to} min={S2_MIN} max={today()} onChange={(e) => onTo(e.target.value)}
+        <input type="date" aria-label="End date" value={to} min={S2_MIN} max={today()} onChange={(e) => onTo(e.target.value)}
           className="rounded-md border border-line bg-white px-2 py-1 text-xs text-ink" />
       </div>
     </div>

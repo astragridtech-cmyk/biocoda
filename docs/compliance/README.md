@@ -28,6 +28,7 @@ House style: no em-dashes; acronyms defined on first use.
 | [customer-DPA.md](customer-DPA.md) | Data Processing Agreement to offer customers (we act as processor) | Customers |
 | [security-overview.md](security-overview.md) | Security white paper and answers to standard due-diligence questions | Customers |
 | [bng-regulatory-positioning.md](bng-regulatory-positioning.md) | Environment Act 2021 / statutory metric boundaries and defensible claims | Sales / internal |
+| [accessibility-audit.md](accessibility-audit.md) | WCAG 2.2 AA self-audit: findings, fixes, and outstanding items | Internal / customers |
 | [readiness-checklist.md](readiness-checklist.md) | External actions still needed (certification, pen test, insurance, signatures) | Internal |
 
 The public-facing summary of all this lives on the website at `/trust`.

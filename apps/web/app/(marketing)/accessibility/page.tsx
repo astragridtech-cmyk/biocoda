@@ -11,8 +11,9 @@ export default function AccessibilityPage() {
     <LegalPage title="Accessibility statement" updated="July 2026">
       <p>
         Astragrid Technologies Ltd is committed to making BioCoda accessible to as many people as
-        possible. We aim to meet the Web Content Accessibility Guidelines (WCAG) 2.1 at level AA
-        across the BioCoda website and application.
+        possible. We aim to meet the Web Content Accessibility Guidelines (WCAG) version 2.2 at level
+        AA across the BioCoda website and application, and we have carried out a code-level self-audit
+        against that standard.
       </p>
 
       <h2>What we do</h2>
@@ -26,8 +27,9 @@ export default function AccessibilityPage() {
       <h2>Known limitations</h2>
       <p>We are aware of areas we are still improving:</p>
       <ul>
-        <li>Interactive maps and satellite imagery are inherently visual and can be difficult to use with a screen reader. We provide the underlying figures in text and tables where we can.</li>
-        <li>Some data visualisations, such as the 30-year condition trajectory, convey information graphically. We show the same values numerically alongside them and are working to make these fully accessible.</li>
+        <li>Selecting a habitat parcel on the interactive map is currently done with a pointer. The same information, and the ability to open any parcel, is fully available from the keyboard-accessible data table and at-risk register.</li>
+        <li>Panning the map requires a drag gesture (zoom has buttons); the data table is the non-spatial equivalent.</li>
+        <li>Charts such as the 30-year condition trajectory convey information graphically. Each carries a text summary for assistive technology, and the same values are shown numerically alongside.</li>
       </ul>
 
       <h2>Reporting a problem</h2>
@@ -46,8 +48,9 @@ export default function AccessibilityPage() {
 
       <h2>How this statement was prepared</h2>
       <p>
-        This statement was prepared in July 2026, based on our own review of the service against WCAG
-        2.1 AA. We review it as the product develops.
+        This statement was prepared in July 2026, based on a code-level self-audit of the service
+        against WCAG 2.2 AA. We review it as the product develops, and intend to commission an
+        independent audit to confirm it.
       </p>
     </LegalPage>
   );

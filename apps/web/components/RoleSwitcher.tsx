@@ -33,7 +33,7 @@ export function RoleSwitcher({
 
   return (
     <div className="flex items-center gap-2 text-xs">
-      <span className="text-stone-400">Viewing as</span>
+      <span className="text-muted">Viewing as</span>
       <select
         aria-label="Role"
         value={role}

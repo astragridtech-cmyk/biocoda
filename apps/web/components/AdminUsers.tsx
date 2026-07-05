@@ -85,10 +85,10 @@ export function AdminUsers({
   return (
     <div className="space-y-6">
       {error && (
-        <div className="rounded-md border border-orchid/40 bg-[#F1EAF7] px-3 py-2 text-sm text-orchid">{error}</div>
+        <div role="alert" className="rounded-md border border-orchid/40 bg-[#F1EAF7] px-3 py-2 text-sm text-risk">{error}</div>
       )}
       {info && (
-        <div className="rounded-md border border-forest/40 bg-[#E4EBDE] px-3 py-2 text-sm text-forest">{info}</div>
+        <div role="status" className="rounded-md border border-forest/40 bg-[#E4EBDE] px-3 py-2 text-sm text-track">{info}</div>
       )}
 
       {/* Add user */}
@@ -130,17 +130,17 @@ export function AdminUsers({
       <div className="card p-5">
         <h2 className="mb-3 font-semibold">Users ({initialUsers.length})</h2>
         {initialUsers.length === 0 ? (
-          <p className="text-sm text-stone-400">No users yet.</p>
+          <p className="text-sm text-muted">No users yet.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-line text-left text-xs uppercase tracking-wide text-muted">
-                  <th className="py-2 pr-4 font-medium">Name</th>
-                  <th className="py-2 pr-4 font-medium">Email</th>
-                  <th className="py-2 pr-4 font-medium">Organisation</th>
-                  <th className="py-2 pr-4 font-medium">Role</th>
-                  <th className="py-2 font-medium"></th>
+                  <th scope="col" className="py-2 pr-4 font-medium">Name</th>
+                  <th scope="col" className="py-2 pr-4 font-medium">Email</th>
+                  <th scope="col" className="py-2 pr-4 font-medium">Organisation</th>
+                  <th scope="col" className="py-2 pr-4 font-medium">Role</th>
+                  <th scope="col" className="py-2 font-medium"><span className="sr-only">Actions</span></th>
                 </tr>
               </thead>
               <tbody>
@@ -154,9 +154,9 @@ export function AdminUsers({
                       <td className="py-2.5 pr-4 text-stone-600">{ROLE_LABEL[u.role] ?? u.role}</td>
                       <td className="py-2.5 text-right">
                         {isSelf ? (
-                          <span className="text-xs text-stone-400">You</span>
+                          <span className="text-xs text-muted">You</span>
                         ) : (
-                          <button onClick={() => revoke(u.email)} className="text-xs font-medium text-orchid hover:underline">
+                          <button onClick={() => revoke(u.email)} className="text-xs font-medium text-risk hover:underline">
                             Revoke
                           </button>
                         )}
