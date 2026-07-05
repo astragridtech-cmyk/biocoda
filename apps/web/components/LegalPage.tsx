@@ -5,6 +5,7 @@ const SANS = "var(--font-inter), system-ui, sans-serif";
 const SERIF = "var(--font-serif), Georgia, serif";
 
 const LEGAL_LINKS: [string, string][] = [
+  ["Trust and security", "/trust"],
   ["Privacy", "/privacy"],
   ["Terms", "/terms"],
   ["Accessibility statement", "/accessibility"],

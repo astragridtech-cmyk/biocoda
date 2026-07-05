@@ -72,7 +72,7 @@ const SECURITY = [
 const FOOTER_COLS = [
   { head: "Product", links: [["Product", "#product"], ["How it works", "#how-it-works"], ["Evidence", "#evidence"], ["Security", "#security"], ["Pricing", "#pricing"]] },
   { head: "Company", links: [["About", "#"], ["Contact", DEMO]] },
-  { head: "Legal", links: [["Privacy", "/privacy"], ["Terms", "/terms"], ["Accessibility statement", "/accessibility"]] },
+  { head: "Legal", links: [["Trust and security", "/trust"], ["Privacy", "/privacy"], ["Terms", "/terms"], ["Accessibility statement", "/accessibility"]] },
 ];
 
 const cardShadow = "0 1px 2px rgba(24,48,26,0.04), 0 10px 26px rgba(24,48,26,0.04)";
