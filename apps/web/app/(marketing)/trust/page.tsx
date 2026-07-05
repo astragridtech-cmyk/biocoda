@@ -64,11 +64,13 @@ export default function TrustPage() {
         reports made in good faith and will work with you on a fix.
       </p>
 
-      <h2>What we are improving</h2>
+      <h2>Certifications</h2>
       <p>
-        We are candid about maturity. We are working towards independent certification (Cyber
-        Essentials) and an external penetration test, and we pin our hosting to the United Kingdom as
-        we go. We are happy to discuss our roadmap with your security team.
+        Astragrid Technologies Ltd is <strong>Cyber Essentials certified</strong> across the whole
+        organisation, under the United Kingdom government-backed scheme assessed by IASME (certificate
+        18afe630-9161-49f6-999e-e0f287b70f27, certified 3 December 2025, recertification due 3 December
+        2026). We can provide the certificate on request, and are happy to discuss our security roadmap
+        with your team.
       </p>
     </LegalPage>
   );

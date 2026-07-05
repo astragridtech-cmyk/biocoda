@@ -32,11 +32,14 @@ Status key: [ ] to do, [~] in progress, [x] done.
 - [ ] Pin Vercel serverless function execution to a UK region (London, `lhr1`) and
       confirm the current region, to match the database's UK residency.
 
-## Security certification and testing
+## Security certification
 
-- [ ] Obtain **Cyber Essentials** (a strong, low-cost baseline that public-sector
-      buyers frequently ask for). Consider Cyber Essentials Plus next.
-- [ ] Commission an independent **penetration test** and remediate findings.
+- [x] **Cyber Essentials** certified across the whole organisation (certificate
+      18afe630-9161-49f6-999e-e0f287b70f27, certified 3 December 2025,
+      recertification due 3 December 2026, assessed by IASME).
+- [ ] Renew Cyber Essentials before 3 December 2026.
+- [ ] Consider **Cyber Essentials Plus** (hands-on audited version) if larger
+      buyers ask for it.
 - [ ] Consider **ISO 27001** only if larger customers require it (significant effort).
 
 ## Operational assurance
@@ -67,7 +70,7 @@ Status key: [ ] to do, [~] in progress, [x] done.
 
 1. Sub-processor DPAs on file and Vercel region pinned (fast, free, closes the
    residency gap).
-2. Cyber Essentials (fast, cheap, most-requested certificate).
-3. Legal sign-off of the policies and DPA.
-4. Penetration test and insurance.
+2. Legal sign-off of the policies and DPA.
+3. Professional indemnity and cyber insurance.
+4. Renew Cyber Essentials before it lapses (December 2026).
 5. ISO 27001 only if a deal requires it.

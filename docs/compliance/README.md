@@ -43,11 +43,12 @@ The public-facing summary of all this lives on the website at `/trust`.
 - **Encryption** in transit (Transport Layer Security) and at rest.
 - **Least data**: BioCoda's core signal is Earth observation of land, which
   contains no personal data.
+- **Cyber Essentials certified** across the whole organisation (certified
+  3 December 2025, recertification due 3 December 2026).
 
 ## The honest gaps (tracked in the readiness checklist)
 
-- No independent certification yet (Cyber Essentials, ISO 27001).
-- No third-party penetration test on record.
 - Sub-processor Data Processing Agreements need to be executed and filed.
 - Application-layer hosting (Vercel functions) should be pinned to a UK region to
   match the database's residency.
+- Legal sign-off of the policies and customer DPA is still to be arranged.

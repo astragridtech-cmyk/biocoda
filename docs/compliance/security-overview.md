@@ -75,11 +75,17 @@ the questions that appear on most supplier security questionnaires.
   code repository.
 - Dependencies are managed with a lockfile.
 
+## Certification
+
+- **Cyber Essentials certified** across the whole organisation (United Kingdom
+  government-backed scheme, assessed by IASME). Certificate
+  18afe630-9161-49f6-999e-e0f287b70f27, certified 3 December 2025, recertification
+  due 3 December 2026. Certificate available on request.
+
 ## Vulnerability and patch management
 
 - Runtime and dependencies are kept current; the managed platform and database
   providers patch the underlying infrastructure.
-- An independent penetration test is a tracked action (see readiness checklist).
 
 ## Sub-processors
 
@@ -109,7 +115,6 @@ transfer safeguards.
 | Do you process special category data? | No |
 | Do you have a breach process and ICO reporting? | Yes |
 | Do you have a customer DPA? | Yes |
-| Independent certification (Cyber Essentials / ISO 27001)? | Not yet, see readiness checklist |
-| Penetration test on record? | Not yet, see readiness checklist |
+| Independent certification? | Cyber Essentials certified (whole organisation), certified December 2025 |
 
 We answer bespoke security questionnaires on request.
